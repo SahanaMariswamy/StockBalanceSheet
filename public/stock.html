@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'/>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    </head>
+    <style>
+        body{
+             background-color:yellowgreen;
+        }
+        th{
+            width: 250px;
+            height:50px;
+            border-radius: 5px;
+            text-align: center;
+            border: 2px solid black;
+            background-color: chocolate;
+        }
+    
+        td{
+           background-color: teal;
+            width: 250px;
+            height:50px;
+            border-radius: 5px;
+            text-align: center;
+            border: 4px solid purple;
+        }
+        h1 {
+            animation-name: heading;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+  
+            }
+
+@keyframes heading {
+  0%   {background-color: powderblue;}
+  25%  {background-color: yellow;}
+  50%  {background-color: tomato;}
+  100% {background-color: orange;}
+}
+
+    </style>
+    <link rel="manifest" href="manifest.json"
+    <body>
+        <center><h1><b><i style='font-size:24px' class='fas'>&#xf02d;</i>
+             Stock Balance Sheet Statement</b></h1></center>
+
+        <center>
+            <table id='tbl' >
+                    <th style="width: 90px">Date</th>
+                    <th style="width: 120px">Receivables</th>
+                    <th style="width: 120px">Short-term investments</th>
+                    <th style="width: 120px">Total shareholders equity</th>
+                    <th style="width: 120px">Total current assets</th>
+                    <th style="width: 120px">Net debt</th>
+                    <th style="width: 120px">Total debt</th>
+                </tr>
+            </table>
+        </center>
+    </body>
+
+    <script>
+        window.addEventListener('DOMContentLoaded',(event)=>{
+            fetch("https://financialmodelingprep.com/api/v3/financials/balance-sheet-statement/AAPL?period=quarter&apikey=demo")
+            .then(response => response.json())
+            .then(data => {
+                var dat =JSON.stringify(data);  
+                dat1=data['financials'];
+
+                var bod=document.getElementById("body");
+
+                var tb=document.getElementById("tbl")
+
+                for(let i=0;i<dat1.length;i++)
+                {
+                    var tr = document.createElement('tr');
+                    var td = document.createElement('td');
+
+                    td.innerHTML=dat1[i].date
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+
+                    var td=document.createElement('td');
+                    td.innerHTML=dat1[i].Receivables
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+                    
+                    var td=document.createElement('td');
+                    td.innerHTML=dat1[i]["Short-term investments"];
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+
+                    var td=document.createElement('td');
+                    td.innerHTML=dat1[i]["Total shareholders equity"];
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+
+                    var td=document.createElement('td');
+                    td.innerHTML=dat1[i]["Total current assets"];
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+
+                    var td=document.createElement('td');
+                    td.innerHTML=dat1[i]["Net Debt"];
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+
+                     var td=document.createElement('td');
+                    td.innerHTML=dat1[i]["Total debt"];
+                    tr.appendChild(td);
+                    tb.appendChild(tr);
+
+                }
+            })
+            .catch(error => console.log('error',error));
+
+        });
+
+
+
+    </script>
+  
+</html>
